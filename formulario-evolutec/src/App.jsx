@@ -23,16 +23,16 @@ function App() {
     e.preventDefault()
     
     try {
-      // Substitua DEPLOYMENT_ID pela URL de implantação do seu Google Apps Script
-      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxntEeHl5f68hC7ZypWevJP7rmtmKN0FMt5lBmh0d4yYCqNJMFFURmTuf4y_Mx2vaht/usercontent'
-      
+      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzNRZ164sdJgbwidZvjPI2OGcTemxWhwnQVFFngo2aEuoRra0ZJZfk8LeqTONDCM_PgXQ/exec'
+      const body = new URLSearchParams(formData)
+
       const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
         },
-        body: JSON.stringify(formData)
+        body
       })
       
       alert('Dados salvos com sucesso!')
