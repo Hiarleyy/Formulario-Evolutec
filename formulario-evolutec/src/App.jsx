@@ -1,5 +1,27 @@
 import { useState } from 'react'
 import './App.css'
+import cursos from './cursos.json'
+
+function Modal({ isOpen, onClose }) {
+  if (!isOpen) return null;
+  return (
+    <div className="modal-overlay" role="dialog" aria-modal="true">
+      <div className="modal-card">
+        <h3 className="modal-title">Envio realizado</h3>
+        <p className="modal-text">Suas informações foram salvas com sucesso.</p>
+        <button type="button" className="modal-button" onClick={onClose}>
+          OK
+        </button>
+      </div>
+      <button
+        type="button"
+        className="modal-backdrop"
+        aria-label="Fechar modal"
+        onClick={onClose}
+      />
+    </div>
+  );
+}
 
 function App() {
   const [formData, setFormData] = useState({
@@ -99,10 +121,11 @@ function App() {
                 required
                 className="form-input"
               >
-                <option value="">Qual curso você tem interesse?</option>
-                <option value="curso1">Curso 1</option>
-                <option value="curso2">Curso 2</option>
-                <option value="curso3">Curso 3</option>
+                {cursos.map((curso, idx) => (
+                  <option key={idx} value={curso.value}>
+                    {curso.label}
+                  </option>
+                ))}
               </select>
               <span className="required">*</span>
             </div>
@@ -126,23 +149,7 @@ function App() {
         </div>
       </div>
 
-      {isModalOpen && (
-        <div className="modal-overlay" role="dialog" aria-modal="true">
-          <div className="modal-card">
-            <h3 className="modal-title">Envio realizado</h3>
-            <p className="modal-text">Suas informações foram salvas com sucesso.</p>
-            <button type="button" className="modal-button" onClick={handleCloseModal}>
-              OK
-            </button>
-          </div>
-          <button
-            type="button"
-            className="modal-backdrop"
-            aria-label="Fechar modal"
-            onClick={handleCloseModal}
-          />
-        </div>
-      )}
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal} />
     </div>
   )
 }
