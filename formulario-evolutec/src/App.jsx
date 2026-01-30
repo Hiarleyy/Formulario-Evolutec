@@ -33,6 +33,7 @@ function App() {
     horario: ''
   })
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -44,12 +45,14 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    
+    if (isSubmitting) return
+
+    setIsSubmitting(true)
     try {
       const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzNRZ164sdJgbwidZvjPI2OGcTemxWhwnQVFFngo2aEuoRra0ZJZfk8LeqTONDCM_PgXQ/exec'
       const body = new URLSearchParams(formData)
 
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
+      await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: {
@@ -57,11 +60,13 @@ function App() {
         },
         body
       })
-      
+
       setFormData({ nomeCompleto: '', telefone: '', email: '', curso: '', cidade: '', horario: '' })
       setIsModalOpen(true)
     } catch (error) {
       console.error('Erro:', error)
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -144,7 +149,9 @@ function App() {
             </div>
 
 
-            <button type="submit" className="btn-enviar">ENVIAR</button>
+            <button type="submit" className="btn-enviar" disabled={isSubmitting}>
+              {isSubmitting ? 'ENVIANDO...' : 'ENVIAR'}
+            </button>
           </form>
         </div>
       </div>
