@@ -3,6 +3,20 @@ import './App.css'
 import cursos from './cursos.json'
 import { SpeedInsights } from "@vercel/speed-insights/react"
 
+const tagManagerArgs = {
+  gtmId: "G-1P9E2V20X6"
+}
+
+TagManager.initialize(tagManagerArgs)
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <App/>
+  </React.StrictMode>
+)
+
+
+
 function Modal({ isOpen, onClose }) {
   if (!isOpen) return null;
   return (
