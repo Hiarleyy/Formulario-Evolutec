@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import cursos from './cursos.json'
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 function Modal({ isOpen, onClose }) {
   if (!isOpen) return null;
