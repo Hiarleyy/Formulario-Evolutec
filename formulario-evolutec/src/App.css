@@ -140,3 +140,57 @@ select.form-input {
 .btn-enviar:active {
   background-color: #0d47a1;
 }
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  padding: 0;
+}
+
+.modal-card {
+  position: relative;
+  z-index: 1;
+  width: min(420px, 90vw);
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.modal-title {
+  margin: 0 0 8px;
+  font-size: 20px;
+  color: #1f2933;
+}
+
+.modal-text {
+  margin: 0 0 20px;
+  color: #52616b;
+  font-size: 14px;
+}
+
+.modal-button {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 999px;
+  background: #1e88e5;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.modal-button:hover {
+  background: #1565c0;
+}

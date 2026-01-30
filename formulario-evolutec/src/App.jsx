@@ -10,6 +10,7 @@ function App() {
     cidade: '',
     horario: ''
   })
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -35,12 +36,15 @@ function App() {
         body
       })
       
-      alert('Dados salvos com sucesso!')
       setFormData({ nomeCompleto: '', telefone: '', email: '', curso: '', cidade: '', horario: '' })
+      setIsModalOpen(true)
     } catch (error) {
       console.error('Erro:', error)
-      alert('Erro ao conectar com o servidor')
     }
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
   }
 
   return (
@@ -121,6 +125,24 @@ function App() {
           </form>
         </div>
       </div>
+
+      {isModalOpen && (
+        <div className="modal-overlay" role="dialog" aria-modal="true">
+          <div className="modal-card">
+            <h3 className="modal-title">Envio realizado</h3>
+            <p className="modal-text">Suas informações foram salvas com sucesso.</p>
+            <button type="button" className="modal-button" onClick={handleCloseModal}>
+              OK
+            </button>
+          </div>
+          <button
+            type="button"
+            className="modal-backdrop"
+            aria-label="Fechar modal"
+            onClick={handleCloseModal}
+          />
+        </div>
+      )}
     </div>
   )
 }
