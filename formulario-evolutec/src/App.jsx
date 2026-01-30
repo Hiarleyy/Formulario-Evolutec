@@ -47,7 +47,7 @@ function App() {
     <div className='Background'>
       <div className="container">
         <div className="formulario-container">
-          <img src="\public\Evolutec.png" alt="" className='logo'/>
+          <img src="/Evolutec.png" alt="" className='logo'/>
           <h2 className="formulario-title">Entraremos em contato com você!</h2>
           <form className="formulario" onSubmit={handleSubmit}>
             <div className="form-group">
