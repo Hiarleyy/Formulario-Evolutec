@@ -29,7 +29,10 @@
     min-height: 120vh;
     padding: 2rem;
   }
-
+  
+  .logo {
+    display: none !important;
+  }
 }
 
 .formulario-container {
