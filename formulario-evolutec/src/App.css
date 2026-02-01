@@ -8,7 +8,7 @@
 
 .container {
   display: flex;
-  background-image: url('/38.png');
+  background-image: url('/38.webp');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -22,7 +22,7 @@
 
 @media (max-width: 768px) {
   .container {
-    background-image: url('/39.png');
+    background-image: url('/39.webp');
     background-attachment: scroll;
     height: 100%;
     margin: 0;

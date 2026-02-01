@@ -1,6 +1,18 @@
 [
   { "value": "", "label": "Qual curso você tem interesse?" },
-  { "value": "curso1", "label": "Curso 1" },
-  { "value": "TESTE", "label": "TESTE" },
-  { "value": "curso3", "label": "Curso 3" }
+  { "value": "auxiliar-administrativo", "label": "Auxiliar administrativo" },
+  { "value": "atendente-farmacia", "label": "Atendente de Farmácia" },
+  { "value": "informatica", "label": "Informática" },
+  { "value": "operador-caixa", "label": "Operador de Caixa" },
+  { "value": "designer-grafico", "label": "Designer Gráfico" },
+  { "value": "programacao", "label": "Programação" },
+  { "value": "gestao-empresarial", "label": "Gestão Empresarial" },
+  { "value": "inteligencia-artificial", "label": "Inteligência Artificial" },
+  { "value": "marketing-digital", "label": "Marketing Digital" },
+  { "value": "profissional-vendas", "label": "Profissional em Vendas" },
+  { "value": "desenvolvimento-games-apps", "label": "Desenvolvimento de Games e apps" },
+  { "value": "manutencao-celulares", "label": "Manutenção de celulares" },
+  { "value": "manutencao-computadores", "label": "Manutenção de computadores" },
+  { "value": "redes-infraestrutura", "label": "Redes e Infraestrutura" },
+  { "value": "outros", "label": "Outros" }
 ]
