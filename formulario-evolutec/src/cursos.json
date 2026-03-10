@@ -1,5 +1,5 @@
 [
-  { "value": "", "label": "Qual curso você tem interesse?" },
+  { "value": "", "label": "Qual curso você já fez?" },
   { "value": "auxiliar-administrativo", "label": "Auxiliar administrativo" },
   { "value": "atendente-farmacia", "label": "Atendente de Farmácia" },
   { "value": "informatica", "label": "Informática" },

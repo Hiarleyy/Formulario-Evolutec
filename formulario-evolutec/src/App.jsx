@@ -26,9 +26,9 @@ function App() {
   const [formData, setFormData] = useState({
     nomeCompleto: '',
     telefone: '',
-    curso: '',
-    cidade: '',
-    jaFezCurso: ''
+    endereco: '',
+    jaFezCurso: '',
+    cursoFeito: ''
   })
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -37,31 +37,47 @@ function App() {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value,
+      ...(name === 'jaFezCurso' && value !== 'Sim' ? { cursoFeito: '' } : {})
     }))
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     if (isSubmitting) return
 
     setIsSubmitting(true)
-    try {
-      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyQV2ewgNUHWiBR6WYgwuhTyJ9C2o1wOJF8OWotJ1k6Jwl5V3bvjR-1QuAyznMkWlH_CQ/exec'
 
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: new URLSearchParams(formData)
-      })
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwomcMoWTsD3B2zRRs2HUnCiIeY5J0hsjzvnn38pCUKezM8UQ0TTMYY255e4NMsQHhFsA/exec'
 
-      setFormData({ nomeCompleto: '', telefone: '', curso: '', cidade: '', jaFezCurso: '' })
+    const iframe = document.createElement('iframe')
+    iframe.name = 'hidden-iframe'
+    iframe.style.display = 'none'
+    document.body.appendChild(iframe)
+
+    const form = document.createElement('form')
+    form.method = 'POST'
+    form.action = GOOGLE_SCRIPT_URL
+    form.target = 'hidden-iframe'
+
+    Object.entries(formData).forEach(([key, value]) => {
+      const input = document.createElement('input')
+      input.type = 'hidden'
+      input.name = key
+      input.value = value
+      form.appendChild(input)
+    })
+
+    document.body.appendChild(form)
+    form.submit()
+
+    setTimeout(() => {
+      document.body.removeChild(form)
+      document.body.removeChild(iframe)
+      setFormData({ nomeCompleto: '', telefone: '', endereco: '', jaFezCurso: '', cursoFeito: '' })
       setIsModalOpen(true)
-    } catch (error) {
-      console.error('Erro:', error)
-    } finally {
       setIsSubmitting(false)
-    }
+    }, 2000)
   }
 
   const handleCloseModal = () => {
@@ -102,28 +118,11 @@ function App() {
             </div>
 
             <div className="form-group">
-              <select 
-                name="curso"
-                value={formData.curso}
-                onChange={handleChange}
-                required
-                className="form-input"
-              >
-                {cursos.map((curso, idx) => (
-                  <option key={idx} value={curso.value}>
-                    {curso.label}
-                  </option>
-                ))}
-              </select>
-              <span className="required">*</span>
-            </div>
-
-            <div className="form-group">
               <input 
                 type="text" 
-                name="cidade"
-                placeholder="Qual cidade você mora?"
-                value={formData.cidade}
+                name="endereco"
+                placeholder="Endereço"
+                value={formData.endereco}
                 onChange={handleChange}
                 required
                 className="form-input"
@@ -140,12 +139,31 @@ function App() {
                 required
                 className="form-input"
               >
-                <option value="">Já fez algum curso de tecnologia?</option>
+                <option value="">Você já fez algum curso?</option>
                 <option value="Sim">Sim</option>
                 <option value="Não">Não</option>
               </select>
               <span className="required">*</span>
             </div>
+
+            {formData.jaFezCurso === 'Sim' && (
+              <div className="form-group">
+                <select
+                  name="cursoFeito"
+                  value={formData.cursoFeito}
+                  onChange={handleChange}
+                  required
+                  className="form-input"
+                >
+                  {cursos.map((curso, idx) => (
+                    <option key={idx} value={curso.value}>
+                      {curso.label}
+                    </option>
+                  ))}
+                </select>
+                <span className="required">*</span>
+              </div>
+            )}
 
             <button type="submit" className="btn-enviar" disabled={isSubmitting}>
               {isSubmitting ? 'ENVIANDO...' : 'ENVIAR'}
