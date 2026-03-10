@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import './App.css'
 import cursos from './cursos.json'
-import { SpeedInsights } from "@vercel/speed-insights/react"
 function Modal({ isOpen, onClose }) {
   if (!isOpen) return null;
   return (
@@ -27,10 +26,9 @@ function App() {
   const [formData, setFormData] = useState({
     nomeCompleto: '',
     telefone: '',
-    email: '',
     curso: '',
     cidade: '',
-    horario: ''
+    jaFezCurso: ''
   })
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -49,19 +47,15 @@ function App() {
 
     setIsSubmitting(true)
     try {
-      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzNRZ164sdJgbwidZvjPI2OGcTemxWhwnQVFFngo2aEuoRra0ZJZfk8LeqTONDCM_PgXQ/exec'
-      const body = new URLSearchParams(formData)
+      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyQV2ewgNUHWiBR6WYgwuhTyJ9C2o1wOJF8OWotJ1k6Jwl5V3bvjR-1QuAyznMkWlH_CQ/exec'
 
       await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-        },
-        body
+        body: new URLSearchParams(formData)
       })
 
-      setFormData({ nomeCompleto: '', telefone: '', email: '', curso: '', cidade: '', horario: '' })
+      setFormData({ nomeCompleto: '', telefone: '', curso: '', cidade: '', jaFezCurso: '' })
       setIsModalOpen(true)
     } catch (error) {
       console.error('Erro:', error)
@@ -108,17 +102,6 @@ function App() {
             </div>
 
             <div className="form-group">
-              <input 
-                type="email" 
-                name="email"
-                placeholder="E-mail"
-                value={formData.email}
-                onChange={handleChange}
-                className="form-input"
-              />
-            </div>
-
-            <div className="form-group">
               <select 
                 name="curso"
                 value={formData.curso}
@@ -148,6 +131,21 @@ function App() {
               <span className="required">*</span>
             </div>
 
+
+            <div className="form-group">
+              <select
+                name="jaFezCurso"
+                value={formData.jaFezCurso}
+                onChange={handleChange}
+                required
+                className="form-input"
+              >
+                <option value="">Já fez algum curso de tecnologia?</option>
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+              </select>
+              <span className="required">*</span>
+            </div>
 
             <button type="submit" className="btn-enviar" disabled={isSubmitting}>
               {isSubmitting ? 'ENVIANDO...' : 'ENVIAR'}
