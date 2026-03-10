@@ -148,19 +148,15 @@ function App() {
 
             {formData.jaFezCurso === 'Sim' && (
               <div className="form-group">
-                <select
+                <input
+                  type="text"
                   name="cursoFeito"
+                  placeholder="Qual curso você já fez?"
                   value={formData.cursoFeito}
                   onChange={handleChange}
                   required
                   className="form-input"
-                >
-                  {cursos.map((curso, idx) => (
-                    <option key={idx} value={curso.value}>
-                      {curso.label}
-                    </option>
-                  ))}
-                </select>
+                />
                 <span className="required">*</span>
               </div>
             )}
